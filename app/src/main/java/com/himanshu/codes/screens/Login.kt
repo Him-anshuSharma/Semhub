@@ -31,7 +31,9 @@ class Login : AppCompatActivity() {
         setContentView(binding.root)
         auth = FirebaseAuth.getInstance()
 
-        login()
+        binding.loginButton.setOnClickListener {
+            login()
+        }
     }
 
     //enter home screen
