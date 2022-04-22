@@ -11,7 +11,7 @@ import com.himanshu.codes.databinding.ActivityAddAssignmentBinding
 class AddAssignment : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddAssignmentBinding
-    private val firebaseReference = Firebase.firestore.document(UID).collection("Assignment")
+    private val firebaseReference = Firebase.firestore
     private lateinit var assignment: Assignment
     private lateinit var UID: String
 
@@ -35,7 +35,7 @@ class AddAssignment : AppCompatActivity() {
 
 
     private fun upload(assignment: Assignment) {
-        firebaseReference.add(assignment)
+        firebaseReference.collection("${UID}Assignment").add(assignment)
             .addOnSuccessListener {
                 Toast.makeText(applicationContext,"Uploaded",Toast.LENGTH_SHORT).show()
                 setResult(RESULT_OK,intent)

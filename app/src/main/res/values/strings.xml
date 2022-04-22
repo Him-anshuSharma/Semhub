@@ -5,7 +5,7 @@
     <string name="assignments">Assignments</string>
     <string name="assessments">Assessments</string>
     <string name="options">Options</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="monday">Mon</string>
     <string name="tuesday">Tue</string>
     <string name="wednesday">Wed</string>
@@ -20,8 +20,7 @@
     <!-- Strings used for fragments for navigation -->
     <string name="add">ADD</string>
     <string name="show">Show</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="title">Title</string>
     <string name="deadline">Deadline</string>
     <string name="subject">Subject</string>

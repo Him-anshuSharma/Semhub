@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="4dp">
@@ -66,19 +67,20 @@
                 android:padding="3dp"
                 android:text="@string/title"
                 android:textColor="@color/purple_200"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:ignore="TextContrastCheck" />
 
         </LinearLayout>
 
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/checkboxAssignment"
                 android:layout_width="wrap_content"
-                android:layout_marginStart="8dp"
                 android:layout_height="match_parent"
-                app:useMaterialThemeColors="true"
-                android:checked="false"
+                android:layout_marginStart="8dp"
                 android:buttonTint="@color/white"
-                />
+                android:checked="false"
+                android:minWidth="48dp"
+                app:useMaterialThemeColors="true" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

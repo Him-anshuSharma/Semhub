@@ -18,26 +18,28 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
-import java.lang.Exception
 
 class Login : AppCompatActivity() {
 
     private lateinit var binding: ScreenLoginBinding
     private lateinit var auth: FirebaseAuth
+    private lateinit var UID: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ScreenLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         auth = FirebaseAuth.getInstance()
 
-        binding.loginButton.setOnClickListener {
+        login()
+    }
 
-            //Toast.makeText(applicationContext,"button Clicked",Toast.LENGTH_SHORT).show()
-
-            login()
-        }
+    //enter home screen
+    private fun launch() {
+        val intent = Intent(applicationContext,HomeScreen::class.java)
+        intent.putExtra("UID",UID)
+        Toast.makeText(applicationContext,UID,Toast.LENGTH_SHORT).show()
+        startActivity(intent)
     }
 
     private val getResult =
@@ -61,9 +63,8 @@ class Login : AppCompatActivity() {
                 auth.signInWithCredential(credential).await()
                 withContext(Dispatchers.Main){
                     Toast.makeText(applicationContext,"Logged In",Toast.LENGTH_SHORT).show()
-                    val intent = Intent(applicationContext,HomeScreen::class.java)
-                    intent.putExtra("UID",auth.currentUser?.uid.toString())
-                    startActivity(intent)
+                    UID = auth.currentUser?.uid.toString()
+                    launch()
                 }
             }catch (e:Exception) {
                 withContext(Dispatchers.Main){

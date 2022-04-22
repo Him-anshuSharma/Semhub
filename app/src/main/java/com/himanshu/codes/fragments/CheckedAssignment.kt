@@ -16,7 +16,7 @@ import com.himanshu.codes.adapters.AssignmentAdapter
 import com.himanshu.codes.assignment.Assignment
 import com.himanshu.codes.interFace.AssignRecViewDataPass
 
-class CheckedAssignment : Fragment() {
+class CheckedAssignment(private val UID: String) : Fragment() {
 
 
     private val firebaseReference = Firebase.firestore
@@ -36,7 +36,7 @@ class CheckedAssignment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
-        loadData("Completed Assignment")
+        loadData("${UID}Completed Assignment")
         return inflater.inflate(R.layout.fragment_checked_assignment_fragment, container, false)
     }
 
@@ -57,16 +57,17 @@ class CheckedAssignment : Fragment() {
 
     private fun removeCompletedAssignment(pos: Int) {
 
-        firebaseReference.collection("Assignment").add(checkedAssignments[pos])
+        firebaseReference.collection("${UID}Assignment").add(checkedAssignments[pos])
 
-        firebaseReference.collection("Completed Assignment").get().addOnSuccessListener {
+        firebaseReference.collection("${UID}Completed Assignment").get().addOnSuccessListener {
             for(assignment in it){
-                if(assignment.getString("assignmentTitle").toString() == checkedAssignments[pos].getAssignmentTitle() &&  assignment.getString("assignmentSubject").toString() == checkedAssignments[pos].getAssignmentSubject()){
+                if(assignment.getString("assignmentTitle").toString() == checkedAssignments[pos].getAssignmentTitle() &&
+                    assignment.getString("assignmentSubject").toString() == checkedAssignments[pos].getAssignmentSubject()){
 
 
-                    firebaseReference.collection("Completed Assignment").document(assignment.id).delete()
+                    firebaseReference.collection("${UID}Completed Assignment").document(assignment.id).delete()
                         .addOnSuccessListener {
-                            Toast.makeText(context,"Completed", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context,"Unchecked the assignment", Toast.LENGTH_SHORT).show()
                             checkedAssignments.removeAt(pos)
                             adapter.notifyItemRemoved(pos)
                         }
@@ -108,6 +109,5 @@ class CheckedAssignment : Fragment() {
         adapter = AssignmentAdapter(checkedAssignments,assignmentDataPass,true)
         recyclerView.adapter = adapter
     }
-
 
 }

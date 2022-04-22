@@ -27,7 +27,17 @@
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
         android:orientation="vertical"
+        android:layout_weight="1"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    <ImageView
+        android:id="@+id/timetableAddClass"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/icon_add"
+        android:layout_margin="20dp"
+        android:layout_gravity="end"
+        android:contentDescription="Add Button" />
 
 
 </LinearLayout>

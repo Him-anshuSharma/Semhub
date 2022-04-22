@@ -59,7 +59,7 @@ class AssignmentsHome(private val UID: String) : Fragment() {
         }
 
         show.setOnClickListener{
-            replace(CheckedAssignment())
+            replace(CheckedAssignment(UID))
         }
     }
 
@@ -91,35 +91,32 @@ class AssignmentsHome(private val UID: String) : Fragment() {
 
     private fun addCompletedAssignment(pos: Int) {
 
-        firebaseReference.collection("Completed Assignment").add(_assignments[pos])
+        firebaseReference.collection("${UID}Completed Assignment").add(_assignments[pos])
 
-        firebaseReference.collection("Assignment").get().addOnSuccessListener {
-            for(assignment in it){
-                if(assignment.getString("assignmentTitle").toString() == _assignments[pos].getAssignmentTitle() &&  assignment.getString("assignmentSubject").toString() == _assignments[pos].getAssignmentSubject()){
-
-                    firebaseReference.collection("Assignment").document(assignment.id).delete()
+        firebaseReference.collection("${UID}Assignment").get().addOnSuccessListener{
+            for(assignment in it)
+            {
+                if(assignment.getString("assignmentTitle").toString() == _assignments[pos].getAssignmentTitle() &&
+                    assignment.getString("assignmentSubject").toString() == _assignments[pos].getAssignmentSubject())
+                    {
+                    firebaseReference.collection("${UID}Assignment").document(assignment.id).delete()
                         .addOnSuccessListener {
-                            Toast.makeText(context,"Completed",Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context,"Checked assignment",Toast.LENGTH_SHORT).show()
                             _assignments.removeAt(pos)
                             adapter.notifyItemRemoved(pos)
                         }
                         .addOnFailureListener {
                             Toast.makeText(context,"Failed",Toast.LENGTH_SHORT).show()
                         }
-
                     Toast.makeText(context,id,Toast.LENGTH_SHORT).show()
                     break
                 }
             }
         }
-
-
     }
 
     private fun loadData(_collection:String) {
-
         _assignments.clear()
-
         firebaseReference.collection(UID+_collection)
             .orderBy("assignmentDeadline", Query.Direction.ASCENDING).get()
             .addOnSuccessListener { assignments ->

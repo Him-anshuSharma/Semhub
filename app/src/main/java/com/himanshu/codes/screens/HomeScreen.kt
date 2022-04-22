@@ -5,8 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.himanshu.codes.R
-import com.himanshu.codes.fragments.TimeTable
 import com.himanshu.codes.fragments.AssignmentsHome
+import com.himanshu.codes.fragments.TimeTable
 
 
 class HomeScreen : AppCompatActivity() {
