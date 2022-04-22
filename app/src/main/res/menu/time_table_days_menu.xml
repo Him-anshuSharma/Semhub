@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="@string/monday"
+        android:id="@+id/timetable_menu_monday"
+        />
+    <item
+        android:title="@string/tuesday"
+        android:id="@+id/timetable_menu_tuesday"
+        />
+    <item
+        android:title="@string/wednesday"
+        android:id="@+id/timetable_menu_wednesday"
+        />
+    <item
+        android:title="@string/thursday"
+        android:id="@+id/timetable_menu_thursday"
+        />
+    <item
+        android:title="@string/friday"
+        android:id="@+id/timetable_menu_friday"
+        />
+</menu>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "782928887982",
+    "project_id": "semhub-80cb1",
+    "storage_bucket": "semhub-80cb1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:782928887982:android:0c4b7792fd7b3e63372d3f",
+        "android_client_info": {
+          "package_name": "com.himanshu.codes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "782928887982-29k32bf5svrsgiftl9vcml79ignpeqbq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBS52QY7Rdg3riXOdQPn2dwXLcrINF418I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "782928887982-29k32bf5svrsgiftl9vcml79ignpeqbq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

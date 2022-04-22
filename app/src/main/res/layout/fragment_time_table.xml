@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.TimeTable"
+    android:orientation="vertical">
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/days_nav_bar"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="12dp"
+        android:layout_height="75dp"
+        app:labelVisibilityMode="labeled"
+        android:paddingBottom="12dp"
+        android:layout_marginTop="12dp"
+        app:itemTextAppearanceInactive="@style/menu_inactive_text_style"
+        app:itemTextAppearanceActive="@style/menu_active_text_style"
+        android:background="@drawable/bg_gradient"
+        app:menu="@menu/time_table_days_menu"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/TimeTableRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+
+</LinearLayout>

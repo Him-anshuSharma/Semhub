@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:icon="@drawable/icon_timetable"
+        android:visible="true"
+        app:showAsAction="withText"
+        android:title="@string/time_table"
+        android:id="@+id/nav_bar_timetable_btn"
+        />
+    <item
+        android:icon="@drawable/icon_assignment"
+        android:visible="true"
+        app:showAsAction="withText"
+        android:title="@string/assignments"
+        android:id="@+id/nav_bar_assignments_btn"
+        />
+    <item
+        android:icon="@drawable/icon_assessment"
+        android:visible="true"
+        app:showAsAction="withText"
+        android:title="@string/assessments"
+        android:id="@+id/nav_bar_assessment_btn"
+        />
+    <item
+        android:icon="@drawable/icon_options"
+        android:visible="true"
+        app:showAsAction="withText"
+        android:title="@string/options"
+        android:id="@+id/nav_bar_options_btn"
+        />
+</menu>

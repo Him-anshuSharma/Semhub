@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CardView.Background" parent="CardView">
+        <item name="cardBackgroundColor">#EFEDED</item>
+        <item name="cardCornerRadius">10dp</item>
+    </style>
+</resources>

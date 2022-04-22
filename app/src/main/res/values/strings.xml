@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Sem Hub</string>
+    <string name="web_client_id">782928887982-29k32bf5svrsgiftl9vcml79ignpeqbq.apps.googleusercontent.com</string>
+    <string name="time_table">Time Table</string>
+    <string name="assignments">Assignments</string>
+    <string name="assessments">Assessments</string>
+    <string name="options">Options</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="monday">Mon</string>
+    <string name="tuesday">Tue</string>
+    <string name="wednesday">Wed</string>
+    <string name="thursday">Thu</string>
+    <string name="friday">Fri</string>
+    <string name="class_time">Class Time</string>
+    <string name="subject_name">Subject Name</string>
+    <string name="subject_image">Subject Image</string>
+    <string name="dot">:</string>
+    <string name="subject_code">SUB CODE</string>
+    <string name="title_activity_assignments_information">AssignmentsInformation</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="add">ADD</string>
+    <string name="show">Show</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title">Title</string>
+    <string name="deadline">Deadline</string>
+    <string name="subject">Subject</string>
+    <string name="details">DETAILS</string>
+    <string name="calendar_icon">Calendar Icon</string>
+    <string name="login">LOGIN</string>
+    <string name="todo">TODO</string>
+</resources>
