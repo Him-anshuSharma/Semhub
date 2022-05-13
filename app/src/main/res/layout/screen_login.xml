@@ -6,22 +6,31 @@
     android:orientation="vertical"
     tools:context=".screens.Login">
 
-    <ImageView
-        android:layout_width="250dp"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/icon_app"
+        android:text="SEMHUB"
+        android:textSize="35sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_weight="1"
         android:layout_gravity="center"
-        android:contentDescription="@string/todo" />
+        android:gravity="center"
+        />
     <Button
+        android:drawableStart="@drawable/icons_google"
         android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/login"
-        android:visibility="gone"
-        android:backgroundTint="@color/black"
+        android:background= "@drawable/shape_roundc"
+        android:backgroundTint="#000000"
+        android:drawablePadding="15sp"
+        android:paddingHorizontal="25dp"
+        android:textStyle="bold"
         android:textColor="@color/white"
-        android:textSize="20sp"
-        android:elevation="10dp"
+        android:textSize="24sp"
+        android:elevation="15dp"
         android:layout_margin="20dp"
         android:layout_gravity="center"
         />
