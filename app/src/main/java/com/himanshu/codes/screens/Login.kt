@@ -3,6 +3,7 @@ package com.himanshu.codes.screens
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -23,57 +24,25 @@ class Login : AppCompatActivity() {
 
     private lateinit var binding: ScreenLoginBinding
     private lateinit var auth: FirebaseAuth
-    private lateinit var UID: String
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         binding = ScreenLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         auth = FirebaseAuth.getInstance()
-
+        binding.loginButton.visibility = View.VISIBLE
         binding.loginButton.setOnClickListener {
             login()
         }
     }
 
     //enter home screen
-    private fun launch() {
+    private fun launch(uid: String) {
         val intent = Intent(applicationContext,HomeScreen::class.java)
-        intent.putExtra("UID",UID)
-        Toast.makeText(applicationContext,UID,Toast.LENGTH_SHORT).show()
+        intent.putExtra("UID",uid)
+        //Toast.makeText(applicationContext,uid, Toast.LENGTH_SHORT).show()
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
-    }
-
-    private val getResult =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {activityResult->
-            if (activityResult.resultCode == Activity.RESULT_OK) {
-
-                //Toast.makeText(applicationContext,"Got result",Toast.LENGTH_SHORT).show()
-
-                val account = GoogleSignIn.getSignedInAccountFromIntent(activityResult.data).result
-                googleAuthForFirebase(account)
-            }
-        }
-
-    private fun googleAuthForFirebase(account: GoogleSignInAccount?) {
-
-        //Toast.makeText(applicationContext,"Google Auth for firebase",Toast.LENGTH_SHORT).show()
-
-        val credential = GoogleAuthProvider.getCredential(account?.idToken,null)
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                auth.signInWithCredential(credential).await()
-                withContext(Dispatchers.Main){
-                    Toast.makeText(applicationContext,"Logged In",Toast.LENGTH_SHORT).show()
-                    UID = auth.currentUser?.uid.toString()
-                    launch()
-                }
-            }catch (e:Exception) {
-                withContext(Dispatchers.Main){
-                    Toast.makeText(applicationContext,"Login Failed\n${e.message}",Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
     }
 
     private fun login() {
@@ -81,13 +50,35 @@ class Login : AppCompatActivity() {
             .requestIdToken(getString(R.string.web_client_id))
             .requestEmail()
             .build()
-        //Toast.makeText(applicationContext,"Button build",Toast.LENGTH_SHORT).show()
         val signInClient = GoogleSignIn.getClient(this,options)
         signInClient.signInIntent.also {intent->
-
-            //Toast.makeText(applicationContext,"Sign-in Client",Toast.LENGTH_SHORT).show()
-
             getResult.launch(intent)
+        }
+    }
+
+    private val getResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {activityResult->
+            if (activityResult.resultCode == Activity.RESULT_OK) {
+                val account = GoogleSignIn.getSignedInAccountFromIntent(activityResult.data).result
+                googleAuthForFirebase(account)
+            }
+        }
+
+    private fun googleAuthForFirebase(account: GoogleSignInAccount?) {
+
+        val credential = GoogleAuthProvider.getCredential(account?.idToken,null)
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                auth.signInWithCredential(credential).await()
+                withContext(Dispatchers.Main){
+                   //Toast.makeText(applicationContext,auth.currentUser?.uid.toString(),Toast.LENGTH_SHORT).show()
+                   launch(auth.currentUser?.uid.toString())
+                }
+            }catch (e:Exception) {
+                withContext(Dispatchers.Main){
+                    Toast.makeText(applicationContext,"Login Failed\n${e.message}",Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 }

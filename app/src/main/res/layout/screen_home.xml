@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_home_screen_background"
-    tools:context=".screens.Home">
+    tools:context=".screens.HomeScreen">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/home_nav_container"

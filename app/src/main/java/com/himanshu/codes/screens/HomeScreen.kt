@@ -1,6 +1,7 @@
 package com.himanshu.codes.screens
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -22,10 +23,6 @@ class HomeScreen : AppCompatActivity() {
         //getting UID
         UID = intent.getStringExtra("UID").toString()
 
-        //setting title name
-        supportActionBar?.show()
-        supportActionBar?.title = "Semhub: Assignments"
-
         //Get Navigation bar
         val navigationBar: BottomNavigationView = findViewById(R.id.nav_bar)
         navigationBar.selectedItemId = R.id.nav_bar_assignments_btn
@@ -45,13 +42,13 @@ class HomeScreen : AppCompatActivity() {
     private fun setFragment(itemId: Int) {
         when (itemId) {
             R.id.nav_bar_timetable_btn -> {
-                supportActionBar?.title = "Semhub: Time Table"
+                supportActionBar?.title = "Time Table"
                 fragment = TimeTable(UID)
                 replace(fragment)
             }
 
             R.id.nav_bar_assignments_btn -> {
-                supportActionBar?.title = "Semhub: Assignments"
+                supportActionBar?.title = "Assignments"
                 fragment = AssignmentsHome(UID)
                 replace(fragment)
             }

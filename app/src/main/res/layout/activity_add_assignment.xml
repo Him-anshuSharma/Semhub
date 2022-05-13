@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_home_screen_background"
     android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"
     tools:context=".screens.AddAssignment">
 
@@ -14,8 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:alpha="0.92"
-        android:background="@drawable/shape_roundc"
         android:orientation="vertical"
         android:padding="20dp"
         app:layout_constraintVertical_bias="0.34"
@@ -30,12 +27,10 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="5dp"
-            android:background="@drawable/shape_roundc"
-            android:backgroundTint="#77000000"
+            android:textColor="@color/black"
             android:gravity="center"
             android:padding="8dp"
             android:text="@string/details"
-            android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="normal" />
 
@@ -131,8 +126,7 @@
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:textStyle="normal"
-                tools:ignore="TextContrastCheck" />
+                android:textStyle="normal" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -140,11 +134,9 @@
 
     <Button
         android:id="@+id/addAssignmentButton"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:background="@drawable/shape_roundc"
-        android:backgroundTint="#E4FFFFFF"
         android:gravity="center"
         android:paddingVertical="2dp"
         android:text="@string/add"
@@ -153,9 +145,10 @@
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.35"
-        tools:layout_editor_absoluteX="20dp" />
+        app:layout_constraintVertical_bias="0.35" />
 
 
 

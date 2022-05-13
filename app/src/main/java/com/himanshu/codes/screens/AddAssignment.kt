@@ -13,14 +13,14 @@ class AddAssignment : AppCompatActivity() {
     private lateinit var binding: ActivityAddAssignmentBinding
     private val firebaseReference = Firebase.firestore
     private lateinit var assignment: Assignment
-    private lateinit var UID: String
+    private lateinit var uid: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddAssignmentBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        UID = intent.getStringExtra("UID").toString()
+        uid = intent.getStringExtra("UID").toString()
 
         binding.addAssignmentButton.setOnClickListener {
             assignment = Assignment(
@@ -31,11 +31,15 @@ class AddAssignment : AppCompatActivity() {
             intent.putExtra("Assignment",assignment)
             upload(assignment)
         }
+
+        binding.assignmentDeadline.setOnClickListener {
+
+        }
     }
 
 
     private fun upload(assignment: Assignment) {
-        firebaseReference.collection("${UID}Assignment").add(assignment)
+        firebaseReference.collection("${uid}Assignment").add(assignment)
             .addOnSuccessListener {
                 Toast.makeText(applicationContext,"Uploaded",Toast.LENGTH_SHORT).show()
                 setResult(RESULT_OK,intent)

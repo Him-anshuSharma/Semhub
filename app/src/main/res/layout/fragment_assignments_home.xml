@@ -27,12 +27,12 @@
             android:id="@+id/showAssignmentButton"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            app:tint="@color/black"
             style="@style/Round"
             android:padding="3dp"
             android:layout_margin="10dp"
             android:alpha="0.95"
-            android:src="@drawable/icon_show"
-            app:tint="@color/white" />
+            android:src="@drawable/icon_show" />
 
         <ImageView
             android:id="@+id/addAssignmentButton"
@@ -43,7 +43,7 @@
             android:layout_margin="10dp"
             android:alpha="0.95"
             android:src="@drawable/icon_add"
-            app:tint="@color/white" />
+            app:tint="@color/black" />
 
     </LinearLayout>
 

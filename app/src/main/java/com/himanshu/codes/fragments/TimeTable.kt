@@ -1,11 +1,9 @@
 package com.himanshu.codes.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,7 +15,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.himanshu.codes.R
 import com.himanshu.codes.adapters.TimeTableAdapter
-import com.himanshu.codes.screens.AddClass
 import com.himanshu.codes.time.Time
 import java.util.*
 
@@ -67,13 +64,6 @@ class TimeTable(private val UID: String) : Fragment() {
         }
 
         //
-        val addClass: ImageView = view.findViewById(R.id.timetableAddClass)
-        addClass.setOnClickListener{
-            val intent = Intent(it.context,AddClass::class.java)
-            intent.putExtra("UID",UID)
-            startActivity(intent)
-        }
-
     }
 
     private fun loadCurrentDayClasses() {

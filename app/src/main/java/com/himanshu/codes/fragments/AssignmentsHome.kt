@@ -3,6 +3,7 @@ package com.himanshu.codes.fragments
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,6 +56,7 @@ class AssignmentsHome(private val UID: String) : Fragment() {
 
         add.setOnClickListener {
             val intent = Intent(context, AddAssignment::class.java)
+            intent.putExtra("UID",UID)
             getResult.launch(intent)
         }
 
@@ -66,12 +68,14 @@ class AssignmentsHome(private val UID: String) : Fragment() {
     private val getResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
+                Toast.makeText(context,"Result ok",Toast.LENGTH_SHORT).show()
                 var count = 0
                 val assignment: Assignment =
                     it.data?.getSerializableExtra("Assignment") as Assignment
                 for (i in _assignments) {
                     if (i.getAssignmentDeadline() > assignment.getAssignmentDeadline()) {
                         _assignments.add(count, assignment)
+                        Log.d("ASSIGNMENT_ADD","RESULT_OK")
                         Toast.makeText(context, count.toString(), Toast.LENGTH_SHORT).show()
                         break
                     } else {

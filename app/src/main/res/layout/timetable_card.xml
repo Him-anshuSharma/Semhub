@@ -24,7 +24,6 @@
                 android:layout_height="0dp"
                 android:text="@string/class_time"
                 android:textColor="@color/white"
-                android:textSize="20sp"
                 android:textStyle="bold"
                 />
 
@@ -36,7 +35,6 @@
                 android:text="@string/subject_name"
                 android:textColor="#99FFFFFF"
                 android:textStyle="bold"
-                android:textSize="16sp"
                 />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
