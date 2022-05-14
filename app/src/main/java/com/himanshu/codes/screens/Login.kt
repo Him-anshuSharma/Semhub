@@ -1,7 +1,9 @@
 package com.himanshu.codes.screens
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -22,17 +24,30 @@ import kotlinx.coroutines.withContext
 
 class Login : AppCompatActivity() {
 
+    private val key = "UID"
+
     private lateinit var binding: ScreenLoginBinding
     private lateinit var auth: FirebaseAuth
+    private lateinit var sharedRef: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         binding = ScreenLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        auth = FirebaseAuth.getInstance()
-        binding.loginButton.visibility = View.VISIBLE
-        binding.loginButton.setOnClickListener {
-            login()
+
+        //to check if user is logged in or not
+        sharedRef = this.getPreferences(Context.MODE_PRIVATE)
+
+        if(sharedRef.contains(key)){
+            val uid = sharedRef.getString(key,"NULL")
+            launch(uid.toString())
+        }
+        else {
+            auth = FirebaseAuth.getInstance()
+            binding.loginButton.visibility = View.VISIBLE
+            binding.loginButton.setOnClickListener {
+                login()
+            }
         }
     }
 
@@ -72,6 +87,10 @@ class Login : AppCompatActivity() {
                 auth.signInWithCredential(credential).await()
                 withContext(Dispatchers.Main){
                    //Toast.makeText(applicationContext,auth.currentUser?.uid.toString(),Toast.LENGTH_SHORT).show()
+                   with(sharedRef.edit()){
+                       putString(key,auth.currentUser?.uid.toString())
+                       apply()
+                   }
                    launch(auth.currentUser?.uid.toString())
                 }
             }catch (e:Exception) {
