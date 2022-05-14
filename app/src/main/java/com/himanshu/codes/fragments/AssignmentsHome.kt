@@ -19,7 +19,7 @@ import com.google.firebase.ktx.Firebase
 import com.himanshu.codes.R
 import com.himanshu.codes.interFace.AssignRecViewDataPass
 import com.himanshu.codes.adapters.AssignmentAdapter
-import com.himanshu.codes.assignment.Assignment
+import com.himanshu.codes.data.Assignment
 import com.himanshu.codes.screens.AddAssignment
 
 class AssignmentsHome(private val UID: String) : Fragment() {
@@ -27,6 +27,7 @@ class AssignmentsHome(private val UID: String) : Fragment() {
     private val firebaseReference = Firebase.firestore
     private val _assignments: ArrayList<Assignment> = ArrayList()
     private lateinit var recyclerView: RecyclerView
+    private val collection = "Assignment"
 
     private val assignmentDataPass = object : AssignRecViewDataPass {
         override fun pass(position: Int) {
@@ -41,7 +42,7 @@ class AssignmentsHome(private val UID: String) : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
-        loadData(git "Assignment")
+        loadData()
         return inflater.inflate(R.layout.fragment_assignments_home, container, false)
     }
 
@@ -119,9 +120,9 @@ class AssignmentsHome(private val UID: String) : Fragment() {
         }
     }
 
-    private fun loadData(_collection:String) {
+    private fun loadData() {
         _assignments.clear()
-        firebaseReference.collection(UID+_collection)
+        firebaseReference.collection(UID+collection)
             .orderBy("assignmentDeadline", Query.Direction.ASCENDING).get()
             .addOnSuccessListener { assignments ->
                 for (assignment in assignments) {

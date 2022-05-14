@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.himanshu.codes.R
+import com.himanshu.codes.fragments.AssessmentsHome
 import com.himanshu.codes.fragments.AssignmentsHome
 import com.himanshu.codes.fragments.TimeTable
 
@@ -53,6 +54,11 @@ class HomeScreen : AppCompatActivity() {
                 replace(fragment)
             }
 
+            R.id.nav_bar_assessment_btn -> {
+                supportActionBar?.title = "Assessments"
+                fragment = AssessmentsHome(UID)
+                replace(fragment)
+            }
         }
 
     }
