@@ -76,7 +76,7 @@ class AssignmentsHome(private val UID: String) : Fragment() {
                     if (i.getAssignmentDeadline() > assignment.getAssignmentDeadline()) {
                         _assignments.add(count, assignment)
                         Log.d("ASSIGNMENT_ADD","RESULT_OK")
-                        qqToast.makeText(context, count.toString(), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, count.toString(), Toast.LENGTH_SHORT).show()
                         break
                     } else {
                         count++
