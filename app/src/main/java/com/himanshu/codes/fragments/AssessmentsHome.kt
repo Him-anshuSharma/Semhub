@@ -15,6 +15,9 @@ import com.himanshu.codes.interFace.AssignRecViewDataPass
 
 class AssessmentsHome : Fragment() {
 
+    private val firebaseReference = Firebase.firestore
+    private val _assignments: ArrayList<Assignment> = ArrayList()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
