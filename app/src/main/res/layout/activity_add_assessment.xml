@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background = "#E1E0E0"
+    android:background="#E1E0E0"
     android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"
-    tools:context=".screens.AddAssignment">
+    tools:context=".screens.AddAssessment">
 
 
     <LinearLayout
@@ -54,7 +54,7 @@
             app:hintAnimationEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/addAssignmentTitle"
+                android:id="@+id/addAssessmentTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/icon_assignment"
@@ -86,7 +86,7 @@
             app:hintAnimationEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/assignmentDeadline"
+                android:id="@+id/assessmentDeadline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/icon_timetable"
@@ -118,7 +118,7 @@
             app:hintAnimationEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/addAssignmentSubject"
+                android:id="@+id/addAssessmentSubject"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/icon_options"
@@ -134,9 +134,9 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/addAssignmentButton"
-        android:layout_width="wrap_content"
+        android:id="@+id/addAssessmentButton"
         android:background="@drawable/shape_roundc"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:gravity="center"

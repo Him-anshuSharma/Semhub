@@ -13,7 +13,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.himanshu.codes.R
 import com.himanshu.codes.adapters.AssignmentAdapter
-import com.himanshu.codes.assignment.Assignment
+import com.himanshu.codes.data.Assignment
 import com.himanshu.codes.interFace.AssignRecViewDataPass
 
 class CheckedAssignment(private val UID: String) : Fragment() {
