@@ -55,8 +55,8 @@ class Login : AppCompatActivity() {
     private fun launch(uid: String) {
         val intent = Intent(applicationContext,HomeScreen::class.java)
         intent.putExtra("UID",uid)
-        //Toast.makeText(applicationContext,uid, Toast.LENGTH_SHORT).show()
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        finishAffinity()
+        // clearing activity stack
         startActivity(intent)
     }
 
