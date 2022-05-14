@@ -41,7 +41,7 @@ class AssignmentsHome(private val UID: String) : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
-        loadData("Assignment")
+        loadData(git "Assignment")
         return inflater.inflate(R.layout.fragment_assignments_home, container, false)
     }
 
