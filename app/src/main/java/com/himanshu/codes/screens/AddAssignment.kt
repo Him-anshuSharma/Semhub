@@ -31,14 +31,11 @@ class AddAssignment : AppCompatActivity() {
             intent.putExtra("Assignment",assignment)
             upload(assignment)
         }
-
-        binding.assignmentDeadline.setOnClickListener {
-
-        }
     }
 
 
     private fun upload(assignment: Assignment) {
+
         firebaseReference.collection("${uid}Assignment").add(assignment)
             .addOnSuccessListener {
                 Toast.makeText(applicationContext,"Uploaded",Toast.LENGTH_SHORT).show()

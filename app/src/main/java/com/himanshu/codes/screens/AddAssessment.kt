@@ -27,14 +27,10 @@ class AddAssessment : AppCompatActivity() {
             assessment = Assessment(
                 binding.addAssessmentTitle.text.toString(),
                 binding.addAssessmentSubject.text.toString(),
-                binding.assessmentDeadline.text.toString()
+                binding.addAssessmentDeadline.text.toString()
             )
             intent.putExtra("Assessment",assessment)
             upload(assessment)
-        }
-
-        binding.assessmentDeadline.setOnClickListener {
-
         }
     }
 

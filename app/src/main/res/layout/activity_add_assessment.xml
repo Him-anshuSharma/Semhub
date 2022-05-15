@@ -86,7 +86,7 @@
             app:hintAnimationEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/assessmentDeadline"
+                android:id="@+id/addAssessmentDeadline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/icon_timetable"

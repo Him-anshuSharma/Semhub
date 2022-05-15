@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.himanshu.codes.R
 import com.himanshu.codes.data.Assessment
-import com.himanshu.codes.data.Assignment
 import com.himanshu.codes.interFace.AssignRecViewDataPass
 import java.text.SimpleDateFormat
 import java.util.*
@@ -44,7 +43,7 @@ class AssessmentAdapter(private val Assessments: ArrayList<Assessment>,
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.assessmentTitle.text = Assessments[position].getAssessmentTittle()
+        viewHolder.assessmentTitle.text = Assessments[position].getAssessmentTitle()
         viewHolder.assessmentDeadline.text = Assessments[position].getAssessmentDeadline()
         viewHolder.assessmentSubject.text = Assessments[position].getAssessmentSubject()
         if(date>Assessments[position].getAssessmentDeadline()){

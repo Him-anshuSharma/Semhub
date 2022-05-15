@@ -64,7 +64,7 @@ class AssessmentsHome(private val UID: String) : Fragment() {
         }
 
         show.setOnClickListener {
-
+            replace(CheckedAssessment(UID))
         }
     }
 
@@ -79,7 +79,6 @@ class AssessmentsHome(private val UID: String) : Fragment() {
                     if (i.getAssessmentDeadline() > assessment.getAssessmentDeadline()) {
                         _assessment.add(count, assessment)
                         Log.d("ASSIGNMENT_ADD", "RESULT_OK")
-                        Toast.makeText(context, count.toString(), Toast.LENGTH_SHORT).show()
                         break
                     } else {
                         count++
@@ -90,21 +89,21 @@ class AssessmentsHome(private val UID: String) : Fragment() {
         }
 
     private fun updateList(pos: Int) {
-        addCompletedAssignment(pos)
+        addCompletedAssessment(pos)
     }
 
-    private fun addCompletedAssignment(pos: Int) {
+    private fun addCompletedAssessment(pos: Int) {
 
         firebaseReference.collection("${UID}Completed Assessment").add(_assessment[pos])
 
         firebaseReference.collection("${UID}Assessment").get().addOnSuccessListener {
-            for (assignment in it) {
-                if (assignment.getString("assessmentTitle")
-                        .toString() == _assessment[pos].getAssessmentTittle() &&
-                    assignment.getString("assessmentSubject")
+            for (assessment in it) {
+                if (assessment.getString("assessmentTitle")
+                        .toString() == _assessment[pos].getAssessmentTitle() &&
+                    assessment.getString("assessmentSubject")
                         .toString() == _assessment[pos].getAssessmentSubject()
                 ) {
-                    firebaseReference.collection("${UID}Assessment").document(assignment.id)
+                    firebaseReference.collection("${UID}Assessment").document(assessment.id)
                         .delete()
                         .addOnSuccessListener {
                             Toast.makeText(context, "Checked Assessment", Toast.LENGTH_SHORT).show()

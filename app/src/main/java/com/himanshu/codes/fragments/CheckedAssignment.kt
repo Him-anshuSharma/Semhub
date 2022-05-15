@@ -29,7 +29,8 @@ class CheckedAssignment(private val UID: String) : Fragment() {
         }
     }
 
-    private var adapter: AssignmentAdapter = AssignmentAdapter(checkedAssignments,assignmentDataPass,true)
+    private var adapter: AssignmentAdapter =
+        AssignmentAdapter(checkedAssignments, assignmentDataPass, true)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,10 +50,9 @@ class CheckedAssignment(private val UID: String) : Fragment() {
     }
 
 
-    private fun updateList(pos:Int){
+    private fun updateList(pos: Int) {
         removeCompletedAssignment(pos)
     }
-
 
 
     private fun removeCompletedAssignment(pos: Int) {
@@ -60,19 +60,24 @@ class CheckedAssignment(private val UID: String) : Fragment() {
         firebaseReference.collection("${UID}Assignment").add(checkedAssignments[pos])
 
         firebaseReference.collection("${UID}Completed Assignment").get().addOnSuccessListener {
-            for(assignment in it){
-                if(assignment.getString("assignmentTitle").toString() == checkedAssignments[pos].getAssignmentTitle() &&
-                    assignment.getString("assignmentSubject").toString() == checkedAssignments[pos].getAssignmentSubject()){
+            for (assignment in it) {
+                if (assignment.getString("assignmentTitle")
+                        .toString() == checkedAssignments[pos].getAssignmentTitle() &&
+                    assignment.getString("assignmentSubject")
+                        .toString() == checkedAssignments[pos].getAssignmentSubject()
+                ) {
 
 
-                    firebaseReference.collection("${UID}Completed Assignment").document(assignment.id).delete()
+                    firebaseReference.collection("${UID}Completed Assignment")
+                        .document(assignment.id).delete()
                         .addOnSuccessListener {
-                            Toast.makeText(context,"Unchecked the assignment", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Unchecked the assignment", Toast.LENGTH_SHORT)
+                                .show()
                             checkedAssignments.removeAt(pos)
                             adapter.notifyItemRemoved(pos)
                         }
                         .addOnFailureListener {
-                            Toast.makeText(context,"Failed", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
                         }
                     break
                 }
@@ -82,7 +87,7 @@ class CheckedAssignment(private val UID: String) : Fragment() {
 
     }
 
-    private fun loadData(_collection:String) {
+    private fun loadData(_collection: String) {
 
         checkedAssignments.clear()
 
@@ -106,7 +111,7 @@ class CheckedAssignment(private val UID: String) : Fragment() {
 
     private fun loadRecyclerView() {
         recyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = AssignmentAdapter(checkedAssignments,assignmentDataPass,true)
+        adapter = AssignmentAdapter(checkedAssignments, assignmentDataPass, true)
         recyclerView.adapter = adapter
     }
 
