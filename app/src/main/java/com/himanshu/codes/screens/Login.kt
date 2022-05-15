@@ -25,6 +25,7 @@ import kotlinx.coroutines.withContext
 class Login : AppCompatActivity() {
 
     private val key = "UID"
+    private val name = "NAME"
 
     private lateinit var binding: ScreenLoginBinding
     private lateinit var auth: FirebaseAuth
@@ -40,7 +41,8 @@ class Login : AppCompatActivity() {
 
         if(sharedRef.contains(key)){
             val uid = sharedRef.getString(key,"NULL")
-            launch(uid.toString())
+            val name = sharedRef.getString(name,"NONAME")
+            launch(uid.toString(),name.toString())
         }
         else {
             auth = FirebaseAuth.getInstance()
@@ -52,9 +54,10 @@ class Login : AppCompatActivity() {
     }
 
     //enter home screen
-    private fun launch(uid: String) {
+    private fun launch(uid: String, Name:String) {
         val intent = Intent(applicationContext,HomeScreen::class.java)
-        intent.putExtra("UID",uid)
+        intent.putExtra(key,uid)
+        intent.putExtra(name,Name)
         finishAffinity()
         // clearing activity stack
         startActivity(intent)
@@ -89,9 +92,10 @@ class Login : AppCompatActivity() {
                    //Toast.makeText(applicationContext,auth.currentUser?.uid.toString(),Toast.LENGTH_SHORT).show()
                    with(sharedRef.edit()){
                        putString(key,auth.currentUser?.uid.toString())
+                       putString(name,auth.currentUser?.displayName.toString())
                        apply()
                    }
-                   launch(auth.currentUser?.uid.toString())
+                   launch(auth.currentUser?.uid.toString(),auth.currentUser?.displayName.toString())
                 }
             }catch (e:Exception) {
                 withContext(Dispatchers.Main){

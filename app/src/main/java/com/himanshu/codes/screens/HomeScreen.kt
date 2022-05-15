@@ -8,6 +8,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.himanshu.codes.R
 import com.himanshu.codes.fragments.AssessmentsHome
 import com.himanshu.codes.fragments.AssignmentsHome
+import com.himanshu.codes.fragments.Options
 import com.himanshu.codes.fragments.TimeTable
 
 
@@ -16,6 +17,7 @@ class HomeScreen : AppCompatActivity() {
 
     private lateinit var fragment: Fragment
     private lateinit var UID: String
+    private lateinit var userName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +25,7 @@ class HomeScreen : AppCompatActivity() {
 
         //getting UID
         UID = intent.getStringExtra("UID").toString()
+        userName = intent.getStringExtra("NAME").toString()
 
         //Get Navigation bar
         val navigationBar: BottomNavigationView = findViewById(R.id.nav_bar)
@@ -57,6 +60,12 @@ class HomeScreen : AppCompatActivity() {
             R.id.nav_bar_assessment_btn -> {
                 supportActionBar?.title = "Assessments"
                 fragment = AssessmentsHome(UID)
+                replace(fragment)
+            }
+
+            R.id.nav_bar_options_btn -> {
+                supportActionBar?.title = "Options"
+                fragment = Options(UID, userName)
                 replace(fragment)
             }
         }
