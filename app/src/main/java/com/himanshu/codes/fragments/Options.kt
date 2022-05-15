@@ -11,7 +11,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.himanshu.codes.R
-import com.himanshu.codes.databinding.FragmentOptionsBinding
 import com.himanshu.codes.screens.Login
 
 class Options(private val UID: String, private val NAME: String) : Fragment() {
@@ -36,10 +35,10 @@ class Options(private val UID: String, private val NAME: String) : Fragment() {
 
         name.text = NAME
         uid.text = UID
-
+        
         logout.setOnClickListener {
-            sharedRef = activity?.getPreferences(Context.MODE_PRIVATE)!!
-            sharedRef.edit().clear().apply()
+            sharedRef = activity?.getSharedPreferences("LOGIN_INFO",Context.MODE_PRIVATE)!!
+            sharedRef.edit().clear().commit()
             startActivity(Intent(context,Login::class.java))
         }
     }

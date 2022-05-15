@@ -37,7 +37,7 @@ class Login : AppCompatActivity() {
         setContentView(binding.root)
 
         //to check if user is logged in or not
-        sharedRef = this.getPreferences(Context.MODE_PRIVATE)
+        sharedRef = this.getSharedPreferences("LOGIN_INFO",Context.MODE_PRIVATE)
 
         if(sharedRef.contains(key)){
             val uid = sharedRef.getString(key,"NULL")
