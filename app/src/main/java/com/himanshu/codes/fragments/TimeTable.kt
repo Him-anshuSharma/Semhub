@@ -170,8 +170,8 @@ class TimeTable(private val UID: String) : Fragment() {
     //set the recycler view
     private fun setRecyclerView() {
         val recyclerView: RecyclerView = view?.findViewById(R.id.TimeTableRecyclerView)!!
+        recyclerView.layoutManager = LinearLayoutManager(context)
         adapter = TimeTableAdapter(classesList)
         recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(context)
     }
 }
