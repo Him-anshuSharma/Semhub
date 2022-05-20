@@ -77,6 +77,7 @@ class StoreData : AppCompatActivity() {
         val editor = sharedPreferences.edit()
         val gson = Gson()
         val json = gson.toJson(assignments)
+        Toast.makeText(applicationContext,"save assignment " + json.toString(),Toast.LENGTH_SHORT).show()
         editor.putString("assignment list",json)
         editor.apply()
     }
@@ -86,9 +87,9 @@ class StoreData : AppCompatActivity() {
         val editor = sharedPreferences.edit()
         val gson = Gson()
         val json = gson.toJson(assessments)
+        Toast.makeText(applicationContext,"save assessment " + json.toString(),Toast.LENGTH_SHORT).show()
         editor.putString("assessment list",json)
         editor.apply()
         finish()
     }
-
 }

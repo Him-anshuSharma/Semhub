@@ -1,7 +1,9 @@
 package com.himanshu.codes.fragments
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.himanshu.codes.R
 import com.himanshu.codes.adapters.AssessmentAdapter
 import com.himanshu.codes.dataFiles.Assessment
@@ -26,10 +30,11 @@ import com.himanshu.codes.screens.AddAssessment
 class AssessmentsHome(private val UID: String) : Fragment() {
 
     private val firebaseReference = Firebase.firestore
-    private val _assessment: ArrayList<Assessment> = ArrayList()
+    private var _assessment: ArrayList<Assessment> = ArrayList()
     private lateinit var recyclerView: RecyclerView
-    private val firebaseNodeName = "Assessment"
-    private val key = "assessmentDeadline"
+
+    private lateinit var sharedPreferences: SharedPreferences
+
     private val assessmentDataPass = object : AssignRecViewDataPass {
         override fun pass(position: Int) {
             updateList(position)
@@ -69,23 +74,16 @@ class AssessmentsHome(private val UID: String) : Fragment() {
     }
 
     private fun loadData() {
-        _assessment.clear()
-        firebaseReference.collection(UID + firebaseNodeName)
-            .orderBy(key, Query.Direction.ASCENDING).get()
-            .addOnSuccessListener { assessments ->
-                for (assessment in assessments) {
-                    _assessment.add(Assessment(
-                        assessment.getString("assessmentTitle").toString(),
-                        assessment.getString("assessmentSubject").toString(),
-                        assessment.getString("assessmentDeadline").toString()
-                    )
-                    )
-                }
-                loadRecyclerView()
-            }
-            .addOnFailureListener {
-                Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
-            }
+        sharedPreferences = activity?.getSharedPreferences("Assessments", Context.MODE_PRIVATE)!!
+        val gson = Gson()
+        val json = sharedPreferences.getString("assessment list",null)
+        Toast.makeText(context,"Assessment" + json.toString(),Toast.LENGTH_SHORT).show()
+        val type = object : TypeToken<ArrayList<Assessment>>(){}.type
+        _assessment = try {
+            gson.fromJson(json, type)
+        }catch (e:Exception) {
+            ArrayList()
+        }
     }
 
     private val getResult =

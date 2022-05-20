@@ -1,7 +1,9 @@
 package com.himanshu.codes.fragments
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,18 +18,23 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.himanshu.codes.R
 import com.himanshu.codes.interFace.AssignRecViewDataPass
 import com.himanshu.codes.adapters.AssignmentAdapter
+import com.himanshu.codes.dataFiles.Assessment
 import com.himanshu.codes.dataFiles.Assignment
 import com.himanshu.codes.screens.AddAssignment
 
 class AssignmentsHome(private val UID: String) : Fragment() {
 
     private val firebaseReference = Firebase.firestore
-    private val _assignments: ArrayList<Assignment> = ArrayList()
+    private var _assignments: ArrayList<Assignment> = ArrayList()
     private lateinit var recyclerView: RecyclerView
     private val collection = "Assignment"
+
+    private lateinit var sharedPreferences: SharedPreferences
 
     private val assignmentDataPass = object : AssignRecViewDataPass {
         override fun pass(position: Int) {
@@ -63,6 +70,20 @@ class AssignmentsHome(private val UID: String) : Fragment() {
 
         show.setOnClickListener{
             replace(CheckedAssignment(UID))
+        }
+    }
+
+
+    private fun loadData() {
+        sharedPreferences = activity?.getSharedPreferences("Assignments", Context.MODE_PRIVATE)!!
+        val gson = Gson()
+        val json = sharedPreferences.getString("assignment list",null)
+        Toast.makeText(context,"Assignment" + json.toString(),Toast.LENGTH_SHORT).show()
+        val type = object : TypeToken<ArrayList<Assignment>>(){}.type
+        _assignments = try {
+            gson.fromJson(json, type)
+        }catch (e:Exception) {
+            ArrayList()
         }
     }
 
@@ -116,25 +137,6 @@ class AssignmentsHome(private val UID: String) : Fragment() {
         }
     }
 
-    private fun loadData() {
-        _assignments.clear()
-        firebaseReference.collection(UID+collection)
-            .orderBy("assignmentDeadline", Query.Direction.ASCENDING).get()
-            .addOnSuccessListener { assignments ->
-                for (assignment in assignments) {
-                    _assignments.add(Assignment(
-                        assignment.getString("assignmentTitle").toString(),
-                        assignment.getString("assignmentSubject").toString(),
-                        assignment.getString("assignmentDeadline").toString()
-                    ))
-                }
-                loadRecyclerView()
-            }
-            .addOnFailureListener {
-                Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
-            }
-
-    }
 
     private fun loadRecyclerView() {
         recyclerView.layoutManager = LinearLayoutManager(context)
