@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.himanshu.codes.R
 import com.himanshu.codes.databinding.ScreenLoginBinding
+import com.himanshu.codes.storeData.StoreData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -31,36 +31,25 @@ class Login : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var sharedRef: SharedPreferences
 
-    override fun onCreate(savedInstanceState: Bundle?){
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ScreenLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         //to check if user is logged in or not
-        sharedRef = this.getSharedPreferences("LOGIN_INFO",Context.MODE_PRIVATE)
+        sharedRef = this.getSharedPreferences("LOGIN_INFO", Context.MODE_PRIVATE)
 
-        if(sharedRef.contains(key)){
-            val uid = sharedRef.getString(key,"NULL")
-            val name = sharedRef.getString(name,"NONAME")
-            launch(uid.toString(),name.toString())
-        }
-        else {
+        //logged in
+        if (sharedRef.contains(key)) {
+            val uid = sharedRef.getString(key, "NULL")
+            val name = sharedRef.getString(name, "NONAME")
+            launch(uid.toString(), name.toString())
+        } else {
             auth = FirebaseAuth.getInstance()
-            binding.loginButton.visibility = View.VISIBLE
             binding.loginButton.setOnClickListener {
                 login()
             }
         }
-    }
-
-    //enter home screen
-    private fun launch(uid: String, Name:String) {
-        val intent = Intent(applicationContext,HomeScreen::class.java)
-        intent.putExtra(key,uid)
-        intent.putExtra(name,Name)
-        finishAffinity()
-        // clearing activity stack
-        startActivity(intent)
     }
 
     private fun login() {
@@ -68,14 +57,14 @@ class Login : AppCompatActivity() {
             .requestIdToken(getString(R.string.web_client_id))
             .requestEmail()
             .build()
-        val signInClient = GoogleSignIn.getClient(this,options)
-        signInClient.signInIntent.also {intent->
+        val signInClient = GoogleSignIn.getClient(this, options)
+        signInClient.signInIntent.also { intent ->
             getResult.launch(intent)
         }
     }
 
     private val getResult =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {activityResult->
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { activityResult ->
             if (activityResult.resultCode == Activity.RESULT_OK) {
                 val account = GoogleSignIn.getSignedInAccountFromIntent(activityResult.data).result
                 googleAuthForFirebase(account)
@@ -84,24 +73,40 @@ class Login : AppCompatActivity() {
 
     private fun googleAuthForFirebase(account: GoogleSignInAccount?) {
 
-        val credential = GoogleAuthProvider.getCredential(account?.idToken,null)
+        val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 auth.signInWithCredential(credential).await()
-                withContext(Dispatchers.Main){
-                   //Toast.makeText(applicationContext,auth.currentUser?.uid.toString(),Toast.LENGTH_SHORT).show()
-                   with(sharedRef.edit()){
-                       putString(key,auth.currentUser?.uid.toString())
-                       putString(name,auth.currentUser?.displayName.toString())
-                       apply()
-                   }
-                   launch(auth.currentUser?.uid.toString(),auth.currentUser?.displayName.toString())
+                withContext(Dispatchers.Main) {
+                    //Toast.makeText(applicationContext,auth.currentUser?.uid.toString(),Toast.LENGTH_SHORT).show()
+                    with(sharedRef.edit()) {
+                        putString(key, auth.currentUser?.uid.toString())
+                        putString(name, auth.currentUser?.displayName.toString())
+                        apply()
+                        val intent = Intent(applicationContext, StoreData::class.java)
+                        intent.putExtra("UID", auth.currentUser?.uid.toString())
+                        startActivity(intent)
+                    }
+                    launch(auth.currentUser?.uid.toString(),
+                        auth.currentUser?.displayName.toString())
                 }
-            }catch (e:Exception) {
-                withContext(Dispatchers.Main){
-                    Toast.makeText(applicationContext,"Login Failed\n${e.message}",Toast.LENGTH_SHORT).show()
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(applicationContext,
+                        "Login Failed\n${e.message}",
+                        Toast.LENGTH_SHORT).show()
                 }
             }
         }
+    }
+
+    //enter home screen
+    private fun launch(uid: String, Name: String) {
+        val intent = Intent(applicationContext, HomeScreen::class.java)
+        intent.putExtra(key, uid)
+        intent.putExtra(name, Name)
+        finishAffinity()
+        // clearing activity stack
+        startActivity(intent)
     }
 }

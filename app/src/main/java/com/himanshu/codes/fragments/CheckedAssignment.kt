@@ -13,7 +13,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.himanshu.codes.R
 import com.himanshu.codes.adapters.AssignmentAdapter
-import com.himanshu.codes.data.Assignment
+import com.himanshu.codes.dataFiles.Assignment
 import com.himanshu.codes.interFace.AssignRecViewDataPass
 
 class CheckedAssignment(private val UID: String) : Fragment() {
@@ -71,8 +71,6 @@ class CheckedAssignment(private val UID: String) : Fragment() {
                     firebaseReference.collection("${UID}Completed Assignment")
                         .document(assignment.id).delete()
                         .addOnSuccessListener {
-                            Toast.makeText(context, "Unchecked the assignment", Toast.LENGTH_SHORT)
-                                .show()
                             checkedAssignments.removeAt(pos)
                             adapter.notifyItemRemoved(pos)
                         }

@@ -5,8 +5,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.himanshu.codes.data.Assessment
-import com.himanshu.codes.data.Assignment
+import com.himanshu.codes.dataFiles.Assessment
 import com.himanshu.codes.databinding.ActivityAddAssessmentBinding
 
 class AddAssessment : AppCompatActivity() {

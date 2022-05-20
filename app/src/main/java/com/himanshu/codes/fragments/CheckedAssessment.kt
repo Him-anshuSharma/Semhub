@@ -13,7 +13,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.himanshu.codes.R
 import com.himanshu.codes.adapters.AssessmentAdapter
-import com.himanshu.codes.data.Assessment
+import com.himanshu.codes.dataFiles.Assessment
 import com.himanshu.codes.interFace.AssignRecViewDataPass
 
 class CheckedAssessment(private val UID: String) : Fragment() {
@@ -67,8 +67,6 @@ class CheckedAssessment(private val UID: String) : Fragment() {
                     firebaseReference.collection("${UID}Completed Assessment")
                         .document(Assessment.id).delete()
                         .addOnSuccessListener {
-                            Toast.makeText(context, "Unchecked the Assessment", Toast.LENGTH_SHORT)
-                                .show()
                             checkedAssessments.removeAt(pos)
                             adapter.notifyItemRemoved(pos)
                         }

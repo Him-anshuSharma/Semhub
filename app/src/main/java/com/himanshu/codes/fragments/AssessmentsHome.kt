@@ -18,7 +18,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.himanshu.codes.R
 import com.himanshu.codes.adapters.AssessmentAdapter
-import com.himanshu.codes.data.Assessment
+import com.himanshu.codes.dataFiles.Assessment
 import com.himanshu.codes.interFace.AssignRecViewDataPass
 import com.himanshu.codes.screens.AddAssessment
 
@@ -68,10 +68,29 @@ class AssessmentsHome(private val UID: String) : Fragment() {
         }
     }
 
+    private fun loadData() {
+        _assessment.clear()
+        firebaseReference.collection(UID + firebaseNodeName)
+            .orderBy(key, Query.Direction.ASCENDING).get()
+            .addOnSuccessListener { assessments ->
+                for (assessment in assessments) {
+                    _assessment.add(Assessment(
+                        assessment.getString("assessmentTitle").toString(),
+                        assessment.getString("assessmentSubject").toString(),
+                        assessment.getString("assessmentDeadline").toString()
+                    )
+                    )
+                }
+                loadRecyclerView()
+            }
+            .addOnFailureListener {
+                Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+            }
+    }
+
     private val getResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
-                Toast.makeText(context, "Result ok", Toast.LENGTH_SHORT).show()
                 var count = 0
                 val assessment: Assessment =
                     it.data?.getSerializableExtra("Assessment") as Assessment
@@ -106,38 +125,16 @@ class AssessmentsHome(private val UID: String) : Fragment() {
                     firebaseReference.collection("${UID}Assessment").document(assessment.id)
                         .delete()
                         .addOnSuccessListener {
-                            Toast.makeText(context, "Checked Assessment", Toast.LENGTH_SHORT).show()
                             _assessment.removeAt(pos)
                             adapter.notifyItemRemoved(pos)
                         }
                         .addOnFailureListener {
                             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
                         }
-                    Toast.makeText(context, id, Toast.LENGTH_SHORT).show()
                     break
                 }
             }
         }
-    }
-
-    private fun loadData() {
-        _assessment.clear()
-        firebaseReference.collection(UID + firebaseNodeName)
-            .orderBy(key, Query.Direction.ASCENDING).get()
-            .addOnSuccessListener { assessments ->
-                for (assessment in assessments) {
-                    _assessment.add(Assessment(
-                        assessment.getString("assessmentTitle").toString(),
-                        assessment.getString("assessmentSubject").toString(),
-                        assessment.getString("assessmentDeadline").toString()
-                    )
-                    )
-                }
-                loadRecyclerView()
-            }
-            .addOnFailureListener {
-                Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
-            }
     }
 
     private fun loadRecyclerView() {

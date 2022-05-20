@@ -19,7 +19,7 @@ import com.google.firebase.ktx.Firebase
 import com.himanshu.codes.R
 import com.himanshu.codes.interFace.AssignRecViewDataPass
 import com.himanshu.codes.adapters.AssignmentAdapter
-import com.himanshu.codes.data.Assignment
+import com.himanshu.codes.dataFiles.Assignment
 import com.himanshu.codes.screens.AddAssignment
 
 class AssignmentsHome(private val UID: String) : Fragment() {
@@ -69,7 +69,6 @@ class AssignmentsHome(private val UID: String) : Fragment() {
     private val getResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
-                Toast.makeText(context,"Result ok",Toast.LENGTH_SHORT).show()
                 var count = 0
                 val assignment: Assignment =
                     it.data?.getSerializableExtra("Assignment") as Assignment
@@ -77,7 +76,6 @@ class AssignmentsHome(private val UID: String) : Fragment() {
                     if (i.getAssignmentDeadline() > assignment.getAssignmentDeadline()) {
                         _assignments.add(count, assignment)
                         Log.d("ASSIGNMENT_ADD","RESULT_OK")
-                        Toast.makeText(context, count.toString(), Toast.LENGTH_SHORT).show()
                         break
                     } else {
                         count++
@@ -106,14 +104,12 @@ class AssignmentsHome(private val UID: String) : Fragment() {
                     {
                     firebaseReference.collection("${UID}Assignment").document(assignment.id).delete()
                         .addOnSuccessListener {
-                            Toast.makeText(context,"Checked assignment",Toast.LENGTH_SHORT).show()
                             _assignments.removeAt(pos)
                             adapter.notifyItemRemoved(pos)
                         }
                         .addOnFailureListener {
                             Toast.makeText(context,"Failed",Toast.LENGTH_SHORT).show()
                         }
-                    Toast.makeText(context,id,Toast.LENGTH_SHORT).show()
                     break
                 }
             }

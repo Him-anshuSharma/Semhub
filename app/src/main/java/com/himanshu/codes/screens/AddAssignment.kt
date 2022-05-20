@@ -5,7 +5,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.himanshu.codes.data.Assignment
+import com.himanshu.codes.dataFiles.Assignment
 import com.himanshu.codes.databinding.ActivityAddAssignmentBinding
 
 class AddAssignment : AppCompatActivity() {

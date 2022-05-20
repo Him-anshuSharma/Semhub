@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SemHub">
         <activity
+            android:name=".storeData.StoreData"
+            android:exported="false" />
+        <activity
             android:name=".screens.AddAssessment"
             android:exported="false" />
         <activity android:name=".screens.AddAssignment" />

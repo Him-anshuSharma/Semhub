@@ -1,4 +1,4 @@
-package com.himanshu.codes.data
+package com.himanshu.codes.dataFiles
 
 import java.io.Serializable
 

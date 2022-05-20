@@ -8,7 +8,7 @@ import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.himanshu.codes.R
-import com.himanshu.codes.data.Assignment
+import com.himanshu.codes.dataFiles.Assignment
 import com.himanshu.codes.interFace.AssignRecViewDataPass
 import java.text.SimpleDateFormat
 import java.util.*
