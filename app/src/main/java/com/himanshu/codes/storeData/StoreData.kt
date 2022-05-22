@@ -1,6 +1,7 @@
 package com.himanshu.codes.storeData
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Toast
@@ -14,11 +15,14 @@ import com.himanshu.codes.R
 import com.himanshu.codes.dataFiles.Assessment
 import com.himanshu.codes.dataFiles.Assignment
 import com.himanshu.codes.databinding.ActivityStoreDataBinding
+import com.himanshu.codes.screens.HomeScreen
+import com.himanshu.codes.screens.Login
 
 class StoreData : AppCompatActivity() {
 
     private lateinit var binding: ActivityStoreDataBinding
     private lateinit var uid:String
+    private lateinit var name: String
 
     private lateinit var sharedPreferences: SharedPreferences
     private val firebaseReference = Firebase.firestore
@@ -30,7 +34,9 @@ class StoreData : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_store_data)
-        uid = intent.getStringExtra("uid").toString()
+        uid = intent.getStringExtra("UID").toString()
+        name = intent.getStringExtra("NAME").toString()
+        Toast.makeText(applicationContext,"$uid \n $name",Toast.LENGTH_SHORT).show()
         Glide.with(applicationContext).load("https://giphy.com/gifs/wait-loading-attente-hWZBZjMMuMl7sWe0x8").into(binding.loadingGif)
         getAssignments()
         getAssessments()
@@ -57,13 +63,13 @@ class StoreData : AppCompatActivity() {
 
     private fun getAssessments(){
         firebaseReference.collection(uid+"Assessment")
-            .orderBy("assignmentDeadline", Query.Direction.ASCENDING).get()
+            .orderBy("assessmentDeadline", Query.Direction.ASCENDING).get()
             .addOnSuccessListener { Assessments ->
                 for (assessment in Assessments) {
                     assessments.add(Assessment(
-                        assessment.getString("assignmentTitle").toString(),
-                        assessment.getString("assignmentSubject").toString(),
-                        assessment.getString("assignmentDeadline").toString()
+                        assessment.getString("assessmentTitle").toString(),
+                        assessment.getString("assessmentSubject").toString(),
+                        assessment.getString("assessmentDeadline").toString()
                     ))
                 }
             }
@@ -77,7 +83,7 @@ class StoreData : AppCompatActivity() {
         val editor = sharedPreferences.edit()
         val gson = Gson()
         val json = gson.toJson(assignments)
-        Toast.makeText(applicationContext,"save assignment " + json.toString(),Toast.LENGTH_SHORT).show()
+        Toast.makeText(applicationContext, "save assignment\n$json",Toast.LENGTH_SHORT).show()
         editor.putString("assignment list",json)
         editor.apply()
     }
@@ -87,9 +93,18 @@ class StoreData : AppCompatActivity() {
         val editor = sharedPreferences.edit()
         val gson = Gson()
         val json = gson.toJson(assessments)
-        Toast.makeText(applicationContext,"save assessment " + json.toString(),Toast.LENGTH_SHORT).show()
+        Toast.makeText(applicationContext, "save assessment\n$json",Toast.LENGTH_SHORT).show()
         editor.putString("assessment list",json)
         editor.apply()
-        finish()
+        launchHomeScreen(uid,name)
     }
+
+    private fun launchHomeScreen(uid: String, Name:String) {
+        val intent = Intent(applicationContext, HomeScreen::class.java)
+        intent.putExtra("UID",uid)
+        intent.putExtra("NAME",Name)
+        finishAffinity()// clearing activity stack
+        startActivity(intent)
+    }
+
 }
