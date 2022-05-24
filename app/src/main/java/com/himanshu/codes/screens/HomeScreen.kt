@@ -72,7 +72,7 @@ class HomeScreen : AppCompatActivity() {
                             currentScreen -= 1
                             setFragment(screen[currentScreen])
                             navigationBar.selectedItemId = screen[currentScreen]
-                            Toast.makeText(applicationContext,"RTL",Toast.LENGTH_SHORT).show()
+                            //Toast.makeText(applicationContext,"RTL",Toast.LENGTH_SHORT).show()
                         }
                     }
                     else{
@@ -80,7 +80,7 @@ class HomeScreen : AppCompatActivity() {
                             currentScreen += 1
                             setFragment(screen[currentScreen])
                             navigationBar.selectedItemId = screen[currentScreen]
-                            Toast.makeText(applicationContext,"LTR",Toast.LENGTH_SHORT).show()
+                            //Toast.makeText(applicationContext,"LTR",Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
@@ -97,7 +97,7 @@ class HomeScreen : AppCompatActivity() {
                 currentScreen = 0
                 supportActionBar?.title = "Time Table"
                 Toast.makeText(applicationContext,UID,Toast.LENGTH_SHORT).show()
-                fragment = TimeTable(UID)
+                fragment = TimeTable()
                 replace(fragment)
             }
 

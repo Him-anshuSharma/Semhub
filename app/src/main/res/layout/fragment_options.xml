@@ -10,11 +10,11 @@
 
     <TextView
         android:background="@drawable/shape_roundc"
-        android:backgroundTint="#EAE5E5"
+        android:layout_weight="1"
         android:padding="5dp"
         android:id="@+id/options_username"
         android:layout_width="match_parent"
-        android:gravity="center"
+        android:gravity="center_horizontal"
         android:layout_height="wrap_content"
         android:layout_margin="25dp"
         android:text="@string/name"
@@ -22,16 +22,18 @@
         android:textColor="@color/black"
         android:textSize="24sp"/>
 
-    <ImageView
+    <Button
         android:id="@+id/options_logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/icon_logout"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
+        android:background="@drawable/shape_roundc"
+        android:backgroundTint="@color/black"
+        android:textColor="@color/white"
+        android:text="LOGOUT"
+        android:padding="15dp"
+        android:layout_margin="25dp"
+        android:layout_gravity="center"
+        android:textSize="18sp"/>
 
 
 
