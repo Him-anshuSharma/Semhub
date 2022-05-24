@@ -11,12 +11,10 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
-import com.himanshu.codes.R
 import com.himanshu.codes.dataFiles.Assessment
 import com.himanshu.codes.dataFiles.Assignment
 import com.himanshu.codes.databinding.ActivityStoreDataBinding
 import com.himanshu.codes.screens.HomeScreen
-import com.himanshu.codes.screens.Login
 
 class StoreData : AppCompatActivity() {
 
@@ -33,15 +31,14 @@ class StoreData : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_store_data)
         uid = intent.getStringExtra("UID").toString()
         name = intent.getStringExtra("NAME").toString()
         Toast.makeText(applicationContext,"$uid \n $name",Toast.LENGTH_SHORT).show()
+        binding = ActivityStoreDataBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         Glide.with(applicationContext).load("https://giphy.com/gifs/wait-loading-attente-hWZBZjMMuMl7sWe0x8").into(binding.loadingGif)
         getAssignments()
         getAssessments()
-        saveAssignments()
-        saveAssessments()
     }
 
     private fun getAssignments(){
@@ -49,15 +46,17 @@ class StoreData : AppCompatActivity() {
             .orderBy("assignmentDeadline", Query.Direction.ASCENDING).get()
             .addOnSuccessListener { Assignments ->
                 for (assignment in Assignments) {
-                    assignments.add(Assignment(
+                    assignments.add(
+                        Assignment(
                         assignment.getString("assignmentTitle").toString(),
                         assignment.getString("assignmentSubject").toString(),
                         assignment.getString("assignmentDeadline").toString()
                     ))
                 }
+                saveAssignments()
             }
             .addOnFailureListener {
-                Toast.makeText(applicationContext, "Failed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, it.message.toString(), Toast.LENGTH_SHORT).show()
             }
     }
 
@@ -72,9 +71,10 @@ class StoreData : AppCompatActivity() {
                         assessment.getString("assessmentDeadline").toString()
                     ))
                 }
+                saveAssessments()
             }
             .addOnFailureListener {
-                Toast.makeText(applicationContext, "Failed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, it.message.toString(), Toast.LENGTH_SHORT).show()
             }
     }
 
@@ -82,8 +82,7 @@ class StoreData : AppCompatActivity() {
         sharedPreferences = getSharedPreferences("Assignments",Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         val gson = Gson()
-        val json = gson.toJson(assignments)
-        Toast.makeText(applicationContext, "save assignment\n$json",Toast.LENGTH_SHORT).show()
+        val json = gson.toJson(assignments).toString()
         editor.putString("assignment list",json)
         editor.apply()
     }
@@ -92,8 +91,7 @@ class StoreData : AppCompatActivity() {
         sharedPreferences = getSharedPreferences("Assessments",Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         val gson = Gson()
-        val json = gson.toJson(assessments)
-        Toast.makeText(applicationContext, "save assessment\n$json",Toast.LENGTH_SHORT).show()
+        val json = gson.toJson(assessments).toString()
         editor.putString("assessment list",json)
         editor.apply()
         launchHomeScreen(uid,name)
