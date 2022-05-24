@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -42,7 +41,7 @@ class AssignmentsHome(private val UID: String) : Fragment() {
     }
 
     private fun loadAssignments() {
-        Toast.makeText(context, "Inside Load Assignments", Toast.LENGTH_SHORT).show()
+        ////Toast.makeText(context, "Inside Load Assignments", //Toast.LENGTH_SHORT).show()
         sharedPreferences = activity?.getSharedPreferences("Assignments", Context.MODE_PRIVATE)!!
         val gson = Gson()
         val type = object : TypeToken<ArrayList<Assignment>>() {}.type
@@ -51,13 +50,13 @@ class AssignmentsHome(private val UID: String) : Fragment() {
         if (assignments.size == 0) {
             assignments = ArrayList()
         }
-        Toast.makeText(context, assignments.size.toString(), Toast.LENGTH_SHORT).show()
+        //Toast.makeText(context, assignments.size.toString(), //Toast.LENGTH_SHORT).show()
         loadRecyclerView()
     }
 
     private fun loadRecyclerView() {
 
-        Toast.makeText(context, "Load Recycler View", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(context, "Load Recycler View", //Toast.LENGTH_SHORT).show()
         recyclerView.layoutManager = LinearLayoutManager(context)
         adapter = AssignmentAdapter(assignments, assignmentDataPass, false)
         recyclerView.adapter = adapter
@@ -71,7 +70,7 @@ class AssignmentsHome(private val UID: String) : Fragment() {
 
     private fun updateAssignmentList(position: Int) {
 
-        Toast.makeText(context, "Update Assignment List", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(context, "Update Assignment List", //Toast.LENGTH_SHORT).show()
         clearSharedPreferences()
         assignments.removeAt(position)
         writeInSharedPreferences()
@@ -81,43 +80,43 @@ class AssignmentsHome(private val UID: String) : Fragment() {
 
     private fun clearSharedPreferences() {
 
-        Toast.makeText(context, "Clear Shared Preference", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(context, "Clear Shared Preference", //Toast.LENGTH_SHORT).show()
         val editor = sharedPreferences.edit()
         editor.clear().apply()
     }
 
     private fun writeInSharedPreferences() {
 
-        Toast.makeText(context, "Write in shared preference", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(context, "Write in shared preference", //Toast.LENGTH_SHORT).show()
         val editor = sharedPreferences.edit()
         val gson = Gson()
         val json = gson.toJson(assignments)
-        Toast.makeText(context, "save assignment\n$json", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(context, "save assignment\n$json", //Toast.LENGTH_SHORT).show()
         editor.putString("assignment list", json)
         editor.apply()
     }
 
     private fun updateRecyclerView(position: Int) {
 
-        Toast.makeText(context, "Update Recycler View", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(context, "Update Recycler View", //Toast.LENGTH_SHORT).show()
         recyclerView.adapter?.notifyItemRemoved(position)
     }
 
     private fun updateFireStore(position: Int) {
 
-        Toast.makeText(context, "Update Firestore", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(context, "Update Firestore", //Toast.LENGTH_SHORT).show()
         updateCheckedAssignmentsList(position)
         updateUncheckedAssignmentsList(position)
     }
 
     private fun updateCheckedAssignmentsList(position: Int) {
-        Toast.makeText(context, "Update Checked Assignment", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(context, "Update Checked Assignment", //Toast.LENGTH_SHORT).show()
         firebaseReference.collection("${UID}Completed Assignment").add(assignments[position])
     }
 
     private fun updateUncheckedAssignmentsList(position: Int) {
 
-        Toast.makeText(context, "Update Unchecked Assignment", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(context, "Update Unchecked Assignment", //Toast.LENGTH_SHORT).show()
         firebaseReference.collection("${UID}Assignment").get().addOnSuccessListener {
             for (assessment in it) {
                 if (assessment.getString("assignmentTitle")
@@ -128,10 +127,10 @@ class AssignmentsHome(private val UID: String) : Fragment() {
                     firebaseReference.collection("${UID}Assignment").document(assessment.id)
                         .delete()
                         .addOnSuccessListener {
-                            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
+                            //Toast.makeText(context, "Success", //Toast.LENGTH_SHORT).show()
                         }
                         .addOnFailureListener {
-                            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+                            //Toast.makeText(context, "Failed", //Toast.LENGTH_SHORT).show()
                         }
                     break
                 }
