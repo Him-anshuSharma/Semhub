@@ -1,10 +1,13 @@
 package com.himanshu.codes.screens
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.gson.Gson
 import com.himanshu.codes.dataFiles.Assignment
 import com.himanshu.codes.databinding.ActivityAddAssignmentBinding
 
@@ -33,9 +36,7 @@ class AddAssignment : AppCompatActivity() {
         }
     }
 
-
     private fun upload(assignment: Assignment) {
-
         firebaseReference.collection("${uid}Assignment").add(assignment)
             .addOnSuccessListener {
                 Toast.makeText(applicationContext,"Uploaded",Toast.LENGTH_SHORT).show()

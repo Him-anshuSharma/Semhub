@@ -4,10 +4,10 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    tools:context=".fragments.AssessmentsHome">
+    tools:context=".fragments.CheckedAssessment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/showAssessmentRecyclerView"
+        android:id="@+id/checkedAssessmentRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"

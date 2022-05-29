@@ -1,11 +1,14 @@
 package com.himanshu.codes.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +20,7 @@ import com.himanshu.codes.R
 import com.himanshu.codes.adapters.AssignmentAdapter
 import com.himanshu.codes.dataFiles.Assignment
 import com.himanshu.codes.interFace.AssignRecViewDataPass
+import com.himanshu.codes.screens.AddAssignment
 
 class AssignmentsHome(private val UID: String) : Fragment() {
 
@@ -38,6 +42,40 @@ class AssignmentsHome(private val UID: String) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = view.findViewById(R.id.showAssignmentRecyclerView)
         loadAssignments()
+
+        val addButton = view.findViewById<ImageView>(R.id.addAssignmentButton)
+        val viewButton = view.findViewById<ImageView>(R.id.showAssignmentButton)
+
+        addButton.setOnClickListener {
+            val intent = Intent(context,AddAssignment::class.java)
+            result.launch(intent)
+        }
+
+        viewButton.setOnClickListener {
+            parentFragmentManager.beginTransaction().replace(R.id.home_nav_container, CheckedAssignment(UID)).commit()
+        }
+
+    }
+
+    private val result = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        val assignment = it.data!!.getSerializableExtra("Assignment") as Assignment
+        addAssignment(assignment)
+    }
+
+    private fun addAssignment(assignment: Assignment) {
+        firebaseReference.collection("${UID}Assignment").add(assignment)
+        var count = 0
+        for(i in assignments){
+            if(i.getAssignmentDeadline()>assignment.getAssignmentDeadline()){
+                assignments.add(count,assignment)
+            }
+            else{
+                count += 1
+            }
+        }
+        clearSharedPreferences()
+        writeInSharedPreferences()
+        updateRecyclerView(count)
     }
 
     private fun loadAssignments() {

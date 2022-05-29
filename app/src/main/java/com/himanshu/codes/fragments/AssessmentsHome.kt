@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,6 +29,7 @@ class AssessmentsHome(private val UID: String) : Fragment() {
     private val firebaseReference = Firebase.firestore
     private lateinit var adapter: AssessmentAdapter
     private lateinit var recyclerView: RecyclerView
+    private lateinit var showCheckedAssessmentsButton: ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,7 +42,13 @@ class AssessmentsHome(private val UID: String) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = view.findViewById(R.id.showAssessmentRecyclerView)
+        showCheckedAssessmentsButton = view.findViewById(R.id.showAssessmentButton)
         loadAssessments()
+
+        showCheckedAssessmentsButton.setOnClickListener {
+            parentFragmentManager.beginTransaction().replace(R.id.home_nav_container, CheckedAssessment(UID)).commit()
+        }
+
     }
 
     private fun loadAssessments() {
@@ -113,10 +123,10 @@ class AssessmentsHome(private val UID: String) : Fragment() {
                     firebaseReference.collection("${UID}Assessment").document(assessment.id)
                         .delete()
                         .addOnSuccessListener {
-                            //Toast.makeText(context, "Success", //Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
                         }
                         .addOnFailureListener {
-                            //Toast.makeText(context, "Failed", //Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
                         }
                     break
                 }

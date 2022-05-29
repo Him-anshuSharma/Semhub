@@ -31,6 +31,8 @@ class StoreData : AppCompatActivity() {
 
     private var assessments: ArrayList<Assessment> = ArrayList()
     private var assignments: ArrayList<Assignment> = ArrayList()
+    private var checkedAssessment: ArrayList<Assessment> = ArrayList()
+    private var checkedAssignments: ArrayList<Assignment> = ArrayList()
     private var classesList: java.util.ArrayList<Time> = java.util.ArrayList()
 
 
@@ -42,8 +44,10 @@ class StoreData : AppCompatActivity() {
         timetableDatabase = FirebaseDatabase.getInstance().reference.child("Users").child(uid).child("TimeTable")
         binding = ActivityStoreDataBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        Glide.with(applicationContext).load("https://giphy.com/gifs/wait-loading-attente-hWZBZjMMuMl7sWe0x8").into(binding.loadingGif)
+        //Glide.with(applicationContext).load("https://giphy.com/gifs/wait-loading-attente-hWZBZjMMuMl7sWe0x8").into(binding.loadingGif)
         getTimeTable()
+        getCheckedAssignments()
+        getCheckedAssessments()
         getAssignments()
         getAssessments()
     }
@@ -62,6 +66,44 @@ class StoreData : AppCompatActivity() {
         editor.putString("TT$day",json)
         editor.apply()
         classesList.clear()
+    }
+
+
+    private fun getCheckedAssignments() {
+        firebaseReference.collection(uid+"Completed Assignment")
+        .orderBy("assignmentDeadline", Query.Direction.ASCENDING).get()
+        .addOnSuccessListener { Assignments ->
+            for (assignment in Assignments) {
+                checkedAssignments.add(
+                    Assignment(
+                        assignment.getString("assignmentTitle").toString(),
+                        assignment.getString("assignmentSubject").toString(),
+                        assignment.getString("assignmentDeadline").toString()
+                    ))
+            }
+            saveCheckedAssignments()
+        }
+        .addOnFailureListener {
+            Toast.makeText(applicationContext, it.message.toString(), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun getCheckedAssessments() {
+        firebaseReference.collection(uid+"Completed Assessment")
+        .orderBy("assessmentDeadline", Query.Direction.ASCENDING).get()
+        .addOnSuccessListener { Assessments ->
+            for (assessment in Assessments) {
+                checkedAssessment.add(Assessment(
+                    assessment.getString("assessmentTitle").toString(),
+                    assessment.getString("assessmentSubject").toString(),
+                    assessment.getString("assessmentDeadline").toString()
+                ))
+            }
+            saveCheckedAssessments()
+        }
+        .addOnFailureListener {
+            Toast.makeText(applicationContext, it.message.toString(), Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun getAssignments(){
@@ -101,6 +143,24 @@ class StoreData : AppCompatActivity() {
             }
     }
 
+    private fun saveCheckedAssignments() {
+        sharedPreferences = getSharedPreferences("Completed Assignments",Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        val gson = Gson()
+        val json = gson.toJson(checkedAssignments).toString()
+        editor.putString("completed assignment list",json)
+        editor.apply()
+    }
+
+    private fun saveCheckedAssessments() {
+        sharedPreferences = getSharedPreferences("Completed Assessments",Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        val gson = Gson()
+        val json = gson.toJson(checkedAssessment).toString()
+        editor.putString("completed assessment list",json)
+        editor.apply()
+    }
+
     private fun saveAssignments(){
         sharedPreferences = getSharedPreferences("Assignments",Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
@@ -124,7 +184,7 @@ class StoreData : AppCompatActivity() {
         val intent = Intent(applicationContext, HomeScreen::class.java)
         intent.putExtra("UID",uid)
         intent.putExtra("NAME",Name)
-        finishAffinity()// clearing activity stack
+        finishAffinity()                        // clearing activity stack
         startActivity(intent)
     }
 
