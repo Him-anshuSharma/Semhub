@@ -2,18 +2,23 @@ package com.himanshu.codes.dataFiles
 
 import java.io.Serializable
 
-class Assignment(private var Title:String, private val Subject: String, private val Deadline: String = "2022-04-17"): Serializable {
+class Assignment(
+    private var Title: String,
+    private val Subject: String,
+    private val Deadline: String = "2022-04-17",
+    public val id:String = "null"
+) : Serializable {
     //getters
 
-    fun getAssignmentTitle():String{
+    fun getAssignmentTitle(): String {
         return Title
     }
 
-    fun getAssignmentSubject():String{
+    fun getAssignmentSubject(): String {
         return Subject
     }
 
-    fun getAssignmentDeadline():String{
+    fun getAssignmentDeadline(): String {
         return Deadline
     }
 }

@@ -63,11 +63,13 @@ class AssessmentsHome(private val UID: String) : Fragment() {
                     return
                 }
                 val _assignments = snapshot.value as Map<String, Map<String, String>>
-                for ((_, value) in _assignments) {
+                for ((id, value) in _assignments) {
+                    Toast.makeText(context,id,Toast.LENGTH_SHORT).show()
                     val assignment = Assessment(
                         value["assessmentTitle"] ?: "",
                         value["assessmentSubject"] ?: "",
-                        value["assessmentDeadline"] ?: ""
+                        value["assessmentDeadline"] ?: "",
+                        id
                     )
                     assessments.add(assignment)
                 }
@@ -95,6 +97,8 @@ class AssessmentsHome(private val UID: String) : Fragment() {
     }
 
     private fun updateAssessmentList(position: Int) {
+        Toast.makeText(context,assessments[position].id,Toast.LENGTH_SHORT).show()
+        firebaseReference.getReference(UID).child("Assessment").child(assessments[position].id).removeValue()
         assessments.removeAt(position)
         updateRecyclerView(position)
     }

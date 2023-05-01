@@ -70,11 +70,12 @@ class AssignmentsHome(private val UID: String) : Fragment() {
                 }
                 val _assignments:Map<String, Map<String, String>>  = snapshot.value as Map<String, Map<String, String>>
                 Log.d("Him", _assignments.toString())
-                for ((_, value) in _assignments) {
+                for ((id, value) in _assignments) {
                     val assignment = Assignment(
                         value["assignmentTitle"] ?: "",
                         value["assignmentSubject"] ?: "",
-                        value["assignmentDeadline"] ?: ""
+                        value["assignmentDeadline"] ?: "",
+                        id
                     )
                     assignments.add(assignment)
                 }
@@ -104,6 +105,7 @@ class AssignmentsHome(private val UID: String) : Fragment() {
 
     private fun updateAssignmentList(position: Int) {
         assignments.removeAt(position)
+        firebaseReference.getReference(UID).child("Assignment").child(assignments[position].id).removeValue()
         updateRecyclerView(position)
     }
 
