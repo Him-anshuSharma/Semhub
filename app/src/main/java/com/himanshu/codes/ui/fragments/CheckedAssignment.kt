@@ -1,4 +1,4 @@
-package com.himanshu.codes.fragments
+package com.himanshu.codes.ui.fragments
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -15,7 +15,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.himanshu.codes.R
-import com.himanshu.codes.adapters.AssignmentAdapter
+import com.himanshu.codes.ui.adapters.AssignmentAdapter
 import com.himanshu.codes.dataFiles.Assignment
 import com.himanshu.codes.interFace.AssignRecViewDataPass
 

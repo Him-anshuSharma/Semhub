@@ -1,4 +1,4 @@
-package com.himanshu.codes.adapters
+package com.himanshu.codes.ui.adapters
 
 import android.graphics.Color
 import android.view.LayoutInflater

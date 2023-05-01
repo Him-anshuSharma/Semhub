@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:orientation="vertical"
-    tools:context=".fragments.Options">
+    tools:context=".ui.fragments.Options">
 
     <TextView
         android:background="@drawable/shape_roundc"

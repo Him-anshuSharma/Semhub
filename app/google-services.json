@@ -1,33 +1,78 @@
 {
   "project_info": {
-    "project_number": "782928887982",
-    "project_id": "semhub-80cb1",
-    "storage_bucket": "semhub-80cb1.appspot.com"
+    "project_number": "997791148008",
+    "project_id": "semhub-a4bc9",
+    "storage_bucket": "semhub-a4bc9.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:782928887982:android:0c4b7792fd7b3e63372d3f",
+        "mobilesdk_app_id": "1:997791148008:android:406fb0037728af7bb1665d",
         "android_client_info": {
           "package_name": "com.himanshu.codes"
         }
       },
       "oauth_client": [
         {
-          "client_id": "782928887982-29k32bf5svrsgiftl9vcml79ignpeqbq.apps.googleusercontent.com",
+          "client_id": "997791148008-5iktbcumfol62v7vavb8792lmafmerer.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.himanshu.codes",
+            "certificate_hash": "c723f3f90264055d1977b3dcbb1d69cf44bd1ab6"
+          }
+        },
+        {
+          "client_id": "997791148008-0lbg5e238tlaphin8t2n549ltbl6tlja.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBS52QY7Rdg3riXOdQPn2dwXLcrINF418I"
+          "current_key": "AIzaSyBnIJRN-1IM9Bo7Cr37Wq9MHoK8n70ctLM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "782928887982-29k32bf5svrsgiftl9vcml79ignpeqbq.apps.googleusercontent.com",
+              "client_id": "997791148008-0lbg5e238tlaphin8t2n549ltbl6tlja.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:997791148008:android:ea7a89d9c60316d0b1665d",
+        "android_client_info": {
+          "package_name": "com.himanshu.semhub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "997791148008-jtah4krr9rv05q6mhtqto9h9d2ubm68k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.himanshu.semhub",
+            "certificate_hash": "c723f3f90264055d1977b3dcbb1d69cf44bd1ab6"
+          }
+        },
+        {
+          "client_id": "997791148008-0lbg5e238tlaphin8t2n549ltbl6tlja.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnIJRN-1IM9Bo7Cr37Wq9MHoK8n70ctLM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "997791148008-0lbg5e238tlaphin8t2n549ltbl6tlja.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

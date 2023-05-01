@@ -1,7 +1,5 @@
-package com.himanshu.codes.fragments
+package com.himanshu.codes.ui.fragments
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,12 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.himanshu.codes.R
-import com.himanshu.codes.adapters.TimeTableAdapter
-import com.himanshu.codes.dataFiles.Assignment
-import com.himanshu.codes.time.Time
+import com.himanshu.codes.dataFiles._Class
+import com.himanshu.codes.ui.adapters.TimeTableAdapter
 import java.util.*
 
 class TimeTable : Fragment() {
@@ -24,9 +19,8 @@ class TimeTable : Fragment() {
     private lateinit var adapter: TimeTableAdapter
 
     //store classes list
-    private var classesList: ArrayList<Time> = ArrayList()
+    private var classesList: ArrayList<_Class> = ArrayList()
 
-    private lateinit var sharedPreferences: SharedPreferences
 
     //Creating View for fragment
     override fun onCreateView(
@@ -120,14 +114,7 @@ class TimeTable : Fragment() {
 
     //read day-wise class data
     private fun readData(day: String) {
-        sharedPreferences = activity?.getSharedPreferences("TimeTable", Context.MODE_PRIVATE)!!
-        val gson = Gson()
-        val type = object : TypeToken<ArrayList<Time>>() {}.type
-        val json = sharedPreferences.getString("TT$day", null)
-        classesList = gson.fromJson(json, type)
-        if (classesList.size == 0) {
-            classesList = ArrayList()
-        }
+        classesList = ArrayList()
         setRecyclerView()
     }
 

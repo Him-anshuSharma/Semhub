@@ -1,4 +1,4 @@
-package com.himanshu.codes.adapters
+package com.himanshu.codes.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.himanshu.codes.R
-import com.himanshu.codes.time.Time
+import com.himanshu.codes.dataFiles._Class
 
-class TimeTableAdapter(private val classList: ArrayList<Time>):
+class TimeTableAdapter(private val classList: ArrayList<_Class>):
     RecyclerView.Adapter<TimeTableAdapter.ItemViewHolder>() {
 
     class ItemViewHolder(view: View): RecyclerView.ViewHolder(view){

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background = "#E1E0E0"
     android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"
-    tools:context=".screens.AddAssignment">
+    tools:context=".ui.screens.AddAssignment">
 
 
     <LinearLayout
@@ -93,6 +93,7 @@
                 android:drawablePadding="15dp"
                 android:hint="@string/deadline"
                 android:textAlignment="center"
+                android:focusable="false"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="normal"

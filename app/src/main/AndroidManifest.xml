@@ -13,14 +13,14 @@
             android:name=".storeData.StoreData"
             android:exported="false" />
         <activity
-            android:name=".screens.AddAssessment"
+            android:name=".ui.screens.AddAssessment"
             android:exported="false" />
-        <activity android:name=".screens.AddAssignment" />
+        <activity android:name=".ui.screens.AddAssignment" />
         <activity
-            android:name=".screens.HomeScreen"
+            android:name=".ui.screens.HomeScreen"
             android:exported="false" />
         <activity
-            android:name=".screens.Login"
+            android:name=".ui.screens.Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
