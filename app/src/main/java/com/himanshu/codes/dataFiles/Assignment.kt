@@ -5,8 +5,8 @@ import java.io.Serializable
 class Assignment(
     private var Title: String,
     private val Subject: String,
-    private val Deadline: String = "2022-04-17",
-    public val id:String = "null"
+    private val Deadline: String ,
+    public val id:String
 ) : Serializable {
     //getters
 

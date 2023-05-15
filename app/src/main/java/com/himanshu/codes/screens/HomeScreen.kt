@@ -1,32 +1,27 @@
-package com.himanshu.codes.ui.screens
+package com.himanshu.codes.screens
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.himanshu.codes.R
-import com.himanshu.codes.ui.fragments.AssessmentsHome
-import com.himanshu.codes.ui.fragments.AssignmentsHome
-import com.himanshu.codes.ui.fragments.Options
-import com.himanshu.codes.ui.fragments.TimeTable
+import com.himanshu.codes.fragments.AssessmentsHome
+import com.himanshu.codes.fragments.AssignmentsHome
+import com.himanshu.codes.fragments.Options
+import com.himanshu.codes.fragments.TimeTable
 
 
 class HomeScreen : AppCompatActivity() {
 
 
     private lateinit var fragment: Fragment
-    private lateinit var UID: String
-    private lateinit var userName: String
+
     private lateinit var navigationBar: BottomNavigationView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_screen)
-
-        //getting UID
-        UID = intent.getStringExtra("UID").toString()
-        userName = intent.getStringExtra("NAME").toString()
 
         //Get Navigation bar
         navigationBar = findViewById(R.id.nav_bar)
@@ -54,19 +49,19 @@ class HomeScreen : AppCompatActivity() {
 
             R.id.nav_bar_assignments_btn -> {
                 supportActionBar?.title = "Assignments"
-                fragment = AssignmentsHome(UID)
+                fragment = AssignmentsHome()
                 replace(fragment)
             }
 
             R.id.nav_bar_assessment_btn -> {
                 supportActionBar?.title = "Assessments"
-                fragment = AssessmentsHome(UID)
+                fragment = AssessmentsHome()
                 replace(fragment)
             }
 
             R.id.nav_bar_options_btn -> {
                 supportActionBar?.title = "Options"
-                fragment = Options(UID, userName)
+                fragment = Options()
                 replace(fragment)
             }
         }

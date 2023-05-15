@@ -1,5 +1,6 @@
-package com.himanshu.codes.ui.adapters
+package com.himanshu.codes.adapters
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,7 @@ class AssignmentAdapter(private val Assignments: ArrayList<Assignment>,
 ) :
     RecyclerView.Adapter<AssignmentAdapter.ViewHolder>() {
 
+    @SuppressLint("SimpleDateFormat")
     private val sdf = SimpleDateFormat("y-MM-d")
     private val date: String = sdf.format(Date()).toString()
 
@@ -53,12 +55,6 @@ class AssignmentAdapter(private val Assignments: ArrayList<Assignment>,
         viewHolder.assignmentTitle.text = Assignments[position].getAssignmentTitle()
         viewHolder.assignmentDeadline.text = Assignments[position].getAssignmentDeadline()
         viewHolder.assignmentSubject.text = Assignments[position].getAssignmentSubject()
-        if(date>Assignments[position].getAssignmentDeadline()){
-            viewHolder.assignmentDeadline.setTextColor(Color.RED)
-            viewHolder.assignmentTitle.setTextColor(Color.RED)
-            viewHolder.assignmentSubject.setTextColor(Color.RED)
-        }
-
         if(checked){
             viewHolder.checkBox.isChecked = true
         }

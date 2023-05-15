@@ -1,4 +1,4 @@
-package com.himanshu.codes.ui.fragments
+package com.himanshu.codes.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -17,12 +17,13 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.himanshu.codes.R
-import com.himanshu.codes.ui.adapters.AssignmentAdapter
+import com.himanshu.codes.adapters.AssignmentAdapter
 import com.himanshu.codes.dataFiles.Assignment
+import com.himanshu.codes.dataFiles.UserDetails
 import com.himanshu.codes.interFace.AssignRecViewDataPass
-import com.himanshu.codes.ui.screens.AddAssignment
+import com.himanshu.codes.screens.AddAssignment
 
-class AssignmentsHome(private val UID: String) : Fragment() {
+class AssignmentsHome() : Fragment() {
 
     private var assignments: ArrayList<Assignment> = ArrayList()
     private val firebaseReference = Firebase.database
@@ -48,19 +49,14 @@ class AssignmentsHome(private val UID: String) : Fragment() {
 
         addButton.setOnClickListener {
             val intent = Intent(context, AddAssignment()::class.java)
-            intent.putExtra("UID", UID)
+            //intent.putExtra("UID", UID)
             startActivity(intent)
-        }
-
-        viewButton.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.home_nav_container, CheckedAssignment(UID)).commit()
         }
 
     }
 
     private fun fetchAssignmentsFromFirebase() {
-        val ref = firebaseReference.getReference(UID).child("Assignment")
+        val ref = firebaseReference.getReference(UserDetails.UID.toString()).child("Assignment")
         ref.addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -104,8 +100,8 @@ class AssignmentsHome(private val UID: String) : Fragment() {
     }
 
     private fun updateAssignmentList(position: Int) {
+        firebaseReference.getReference(UserDetails.UID.toString()).child("Assignment").child(assignments[position].id).removeValue()
         assignments.removeAt(position)
-        firebaseReference.getReference(UID).child("Assignment").child(assignments[position].id).removeValue()
         updateRecyclerView(position)
     }
 

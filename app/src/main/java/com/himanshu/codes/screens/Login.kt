@@ -1,4 +1,4 @@
-package com.himanshu.codes.ui.screens
+package com.himanshu.codes.screens
 
 import android.app.Activity
 import android.content.Intent
@@ -12,6 +12,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.himanshu.codes.R
+import com.himanshu.codes.dataFiles.UserDetails
 import com.himanshu.codes.databinding.ScreenLoginBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,9 +21,6 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
 class Login : AppCompatActivity() {
-
-    private val key = "UID"
-    private val name = "NAME"
 
     private lateinit var binding: ScreenLoginBinding
     private lateinit var auth: FirebaseAuth
@@ -68,8 +66,8 @@ class Login : AppCompatActivity() {
                 {
 
                     val intent = Intent(applicationContext, HomeScreen::class.java)
-                    intent.putExtra(key, auth.currentUser?.uid.toString())
-                    intent.putExtra(name, auth.currentUser?.displayName.toString())
+                    UserDetails.setUserName(auth.currentUser?.displayName.toString())
+                    UserDetails.setUid(auth.currentUser?.uid.toString())
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                 }

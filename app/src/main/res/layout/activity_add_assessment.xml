@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#E1E0E0"
     android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"
-    tools:context=".ui.screens.AddAssessment">
+    tools:context=".screens.AddAssessment">
 
 
     <LinearLayout

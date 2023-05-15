@@ -1,4 +1,4 @@
-package com.himanshu.codes.ui.fragments
+package com.himanshu.codes.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.himanshu.codes.R
 import com.himanshu.codes.dataFiles._Class
-import com.himanshu.codes.ui.adapters.TimeTableAdapter
+import com.himanshu.codes.adapters.TimeTableAdapter
 import java.util.*
 
 class TimeTable : Fragment() {

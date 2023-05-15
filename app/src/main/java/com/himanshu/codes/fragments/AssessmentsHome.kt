@@ -1,4 +1,4 @@
-package com.himanshu.codes.ui.fragments
+package com.himanshu.codes.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -16,13 +16,14 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.himanshu.codes.R
-import com.himanshu.codes.ui.adapters.AssessmentAdapter
+import com.himanshu.codes.adapters.AssessmentAdapter
 import com.himanshu.codes.dataFiles.Assessment
+import com.himanshu.codes.dataFiles.UserDetails
 import com.himanshu.codes.interFace.AssignRecViewDataPass
-import com.himanshu.codes.ui.screens.AddAssessment
+import com.himanshu.codes.screens.AddAssessment
 
 
-class AssessmentsHome(private val UID: String) : Fragment() {
+class AssessmentsHome() : Fragment() {
 
     private var assessments: ArrayList<Assessment> = ArrayList()
     private val firebaseReference = Firebase.database
@@ -47,14 +48,14 @@ class AssessmentsHome(private val UID: String) : Fragment() {
 
         addButton.setOnClickListener {
             val intent = Intent(context, AddAssessment()::class.java)
-            intent.putExtra("UID", UID)
+            //intent.putExtra("UID", UID)
             startActivity(intent)
         }
 
     }
 
     private fun fetchAssessmentFromFirebase() {
-        val ref = firebaseReference.getReference(UID).child("Assessment")
+        val ref = firebaseReference.getReference(UserDetails.UID.toString()).child("Assessment")
         ref.addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -64,7 +65,7 @@ class AssessmentsHome(private val UID: String) : Fragment() {
                 }
                 val _assignments = snapshot.value as Map<String, Map<String, String>>
                 for ((id, value) in _assignments) {
-                    Toast.makeText(context,id,Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context,id,Toast.LENGTH_SHORT).show()
                     val assignment = Assessment(
                         value["assessmentTitle"] ?: "",
                         value["assessmentSubject"] ?: "",
@@ -98,7 +99,7 @@ class AssessmentsHome(private val UID: String) : Fragment() {
 
     private fun updateAssessmentList(position: Int) {
         Toast.makeText(context,assessments[position].id,Toast.LENGTH_SHORT).show()
-        firebaseReference.getReference(UID).child("Assessment").child(assessments[position].id).removeValue()
+        firebaseReference.getReference(UserDetails.UID.toString()).child("Assessment").child(assessments[position].id).removeValue()
         assessments.removeAt(position)
         updateRecyclerView(position)
     }
